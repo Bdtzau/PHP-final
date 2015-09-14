@@ -23,7 +23,6 @@ include("config/session.php");
 			$page = "index";
 		}
 
-		echo "<h1>$page</h1>";
 
 		if (file_exists("views/$page.php") ) {
 			include ("views/$page.php");

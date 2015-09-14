@@ -20,17 +20,19 @@ if (isset($_GET['id'])) {
 
 include("includes/submit_comment.php");
 
-$query = "SELECT comments.*, users.email FROM comments INNER JOIN users ON comments.posted_by_userid=users.id";
+$query = 	"SELECT comments.*, users.email FROM comments 
+			INNER JOIN users ON comments.posted_by_userid=users.id
+			ORDER BY time_posted DESC";
 
 $result = $connection->query($query);
 
 if ($result->num_rows > 0) {
 	// We have data in our database
-	// echo "<pre>";
+	echo "<h2>Recent Comments:</h2>";
 	while ($row = mysqli_fetch_array($result)) {
 		// print_r($row);
 		if ($row['posted_to_userid'] == $profile['id']) {
-			echo "<p>". $row['comment'] . ", posted by user: ".$row['email']."</p>";
+			echo "<div><p>". $row['comment'] . "</p> <p>posted by: ".$row['email']."</p> <p>".$row['time_posted']."</p><br /></div>";
 		}
 	}
 } else {
